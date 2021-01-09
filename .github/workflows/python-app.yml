@@ -1,0 +1,36 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Python application
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    
+    - name: wemake-python-styleguide
+      uses: wemake-services/wemake-python-styleguide@0.14.1
+      continue-on-error: true      
+      with:
+        path: 'src'
+        reporter: 'github-pr-review'
+      env:
+        GITHUB_TOKEN: ${{ secrets.LINT_TOKEN }}
+        
+    - name: Test with pytest
+      run: |
+        pytest
