@@ -36,28 +36,8 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v2
-      - name: "Create .netrc for Heroku Auth and Login"
-        shell: bash
-        run: |
-          `cat > ~/.netrc <<EOF
-          machine api.heroku.com
-              login $EMAIL
-              password $HEROKU_AUTH_TOKEN
-          machine git.heroku.com
-              login $EMAIL
-              password $HEROKU_AUTH_TOKEN
-          EOF`
-          heroku login
-        env:
-          EMAIL: ${{ secrets.HEROKU_EMAIL }}
-          HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
-
-      - name: Add remote
-        run: heroku git:remote -a ${{ secrets.HEROKU_APP_NAME }}
-
-      - name: Deploy to Heroku
-        run: git push heroku main
-
-
-
-      
+      - uses: akhileshns/heroku-deploy@v3.6.8
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
