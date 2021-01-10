@@ -51,10 +51,13 @@ jobs:
           EMAIL: ${{ secrets.HEROKU_EMAIL }}
           HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
       
+      - name: Login to Heroku
+        run: heroku login
+
       - name: Add remote
         run: heroku git:remote -a ${{ secrets.HEROKU_APP_NAME }}
 
-      - name: Deploy
+      - name: Deploy to Heroku
         run: git push heroku main
 
 
