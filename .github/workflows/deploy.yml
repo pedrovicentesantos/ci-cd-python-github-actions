@@ -36,17 +36,27 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v2
-      - name: Login to Heroku Container registry
-        env: 
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:login 
-      - name: Build and push
+      - name: "Create .netrc for Heroku Auth"
+        shell: bash
+        run: |
+          `cat > ~/.netrc <<EOF
+          machine api.heroku.com
+              login $EMAIL
+              password $HEROKU_AUTH_TOKEN
+          machine git.heroku.com
+              login $EMAIL
+              password $HEROKU_AUTH_TOKEN
+          EOF`
         env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web 
-      - name: Release
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web 
+          EMAIL: ${{ secrets.HEROKU_EMAIL }}
+          HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
+      - name: "Add remote"
+        shell: "bash"
+        run: |
+          heroku git:remote --app ${{ secrets.HEROKU_APP_NAME }}
+      - name: "Push to heroku"
+        shell: "bash"
+        run: |
+          git push heroku HEAD:main 
 
       
