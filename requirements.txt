@@ -1,0 +1,6 @@
+flask
+gunicorn
+wemake-python-styleguide
+pytest
+requests
+blinker
