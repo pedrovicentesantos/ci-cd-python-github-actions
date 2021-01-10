@@ -36,7 +36,7 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v2
-      - name: "Create .netrc for Heroku Auth"
+      - name: "Create .netrc for Heroku Auth and Login"
         shell: bash
         run: |
           `cat > ~/.netrc <<EOF
@@ -47,12 +47,10 @@ jobs:
               login $EMAIL
               password $HEROKU_AUTH_TOKEN
           EOF`
+          heroku login
         env:
           EMAIL: ${{ secrets.HEROKU_EMAIL }}
           HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
-      
-      - name: Login to Heroku
-        run: heroku login
 
       - name: Add remote
         run: heroku git:remote -a ${{ secrets.HEROKU_APP_NAME }}
