@@ -1,12 +1,13 @@
 import os
-import requests
-from flask import Flask, render_template
 
+import requests
 from dotenv import load_dotenv
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 load_dotenv()
+
 
 @app.route('/')
 def cat():
@@ -23,7 +24,9 @@ def dog():
     url = resp_json[0]['url']
     return render_template('index.html', title='Dog', image_url=url)
 
+
 if (__name__ == '__main__'):
-    port = os.getenv('PORT') if os.getenv('PORT') != None else 5000 
+    DEFAULT_PORT = 5000
+    port = os.getenv('PORT') if os.getenv('PORT') is not None else DEFAULT_PORT
 
     app.run(port=port)
