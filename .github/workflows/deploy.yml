@@ -35,9 +35,9 @@ jobs:
     needs: build
     steps:
       - name: Use Node 16
-          uses: actions/setup-node@v3
-          with:
-            node-version: 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
       - name: Install Railway CLI
         run: npm i -g @railway/cli
