@@ -22,7 +22,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: wemake-python-styleguide
-        uses: wemake-services/wemake-python-styleguide@0.14.1
+        uses: wemake-services/wemake-python-styleguide@latest
         with:
           path: 'src'
 
