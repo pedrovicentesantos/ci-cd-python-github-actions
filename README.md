@@ -7,17 +7,18 @@ Utiliza duas APIs para obter imagens aleatórias:
 - [https://api.thecatapi.com/v1/images/search](https://api.thecatapi.com/v1/images/search)
 - [https://api.thedogapi.com/v1/images/search](https://api.thedogapi.com/v1/images/search)
 
-O deploy da aplicação é feito no Heroku utilizando GitHub Actions e a aplicação pode ser acessada em:
+O deploy da aplicação é feito no (Railway)[https://railway.app] utilizando GitHub Actions e a aplicação pode ser acessada em:
 
-[https://ci-cd-python-github-actions.herokuapp.com](https://ci-cd-python-github-actions.herokuapp.com)
+[https://certain-meal-production.up.railway.app](https://certain-meal-production.up.railway.app)
 
 ## Rotas
 
-- https://ci-cd-python-github-actions.herokuapp.com/
-  * Rota principal, que retorna imagem aleatória de um gato
+- https://certain-meal-production.up.railway.app/
 
-- https://ci-cd-python-github-actions.herokuapp.com/dog
-  * Rota que retorna imagem aleatória de um cachorro
+  - Rota principal, que retorna imagem aleatória de um gato
+
+- https://certain-meal-production.up.railway.app/dog
+  - Rota que retorna imagem aleatória de um cachorro
 
 ## Instalação
 
@@ -60,6 +61,4 @@ A aplicação possui dois pipelines, uma para cada Pull Request na branch Main e
 
 Ambos os pipelines instalam as dependências necessárias, passam a pasta com o código principal por um lint e rodam testes com o framework `pytest`.
 
-O pipeline de deploy acrescenta o job de deploy após o job de build para realizar o deploy no Heroku. Para isso, usa uma action do Marketplace do GitHub, que pode ser acessada em [Deploy to Heroku](https://github.com/marketplace/actions/deploy-to-heroku).
-
-
+O pipeline de deploy acrescenta steps para instalar a CLI do Railway e realizar o deploy da aplicação como explicado no [seguinte documento](https://blog.railway.app/p/github-actions).
