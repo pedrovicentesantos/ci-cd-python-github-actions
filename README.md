@@ -7,17 +7,13 @@ Utiliza duas APIs para obter imagens aleatórias:
 - [https://api.thecatapi.com/v1/images/search](https://api.thecatapi.com/v1/images/search)
 - [https://api.thedogapi.com/v1/images/search](https://api.thedogapi.com/v1/images/search)
 
-O deploy da aplicação é feito no (Railway)[https://railway.app] utilizando GitHub Actions e a aplicação pode ser acessada em:
-
-[https://certain-meal-production.up.railway.app](https://certain-meal-production.up.railway.app)
-
 ## Rotas
 
-- https://certain-meal-production.up.railway.app/
+- /
 
   - Rota principal, que retorna imagem aleatória de um gato
 
-- https://certain-meal-production.up.railway.app/dog
+- /dog
   - Rota que retorna imagem aleatória de um cachorro
 
 ## Instalação
@@ -60,5 +56,3 @@ python -m pytest tests
 A aplicação possui dois pipelines, uma para cada Pull Request na branch Main e um para cada Push na branch Main.
 
 Ambos os pipelines instalam as dependências necessárias, passam a pasta com o código principal por um lint e rodam testes com o framework `pytest`.
-
-O pipeline de deploy acrescenta steps para instalar a CLI do Railway e realizar o deploy da aplicação como explicado no [seguinte documento](https://blog.railway.app/p/github-actions).
